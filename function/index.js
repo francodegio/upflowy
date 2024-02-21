@@ -16,14 +16,9 @@ async function readS3(sessionID)  {
         Bucket: bucketName,
         Key: objectKey
     };
-    try {
-        const s3Object = await s3.getObject(params).promise();
-        console.log(s3Object.Body.toString());
-        return s3Object.Body.toString();
-    } catch (err) {
-        console.log(err);
-        return ''; //ensure a string is returned
-    }
+    const s3Object = await s3.getObject(params).promise();
+    console.log(s3Object.Body.toString());
+    return s3Object.Body.toString();
 }
 
 
