@@ -1,7 +1,7 @@
 # Upflowy
 AI Engineer Tech Assessment
 
-## About
+## 1. About
 This is an AWS Lambda implementation of a conversational agent with a vectorstore-powered memory.
 
 **Note**: for simplicity's sake, I'm assuming that the conversation history format is:
@@ -14,7 +14,43 @@ This is an AWS Lambda implementation of a conversational agent with a vectorstor
 ### AI: ...
 ```
 
-## To Do
+## 2. Running the code
+1. Create S3 bucket
+```sh
+$ sh 0-create-bucket.sh
+```
+2. Paste bucket name into `template.yaml` file at:
+```yaml
+Resources:
+  function:
+    Properties:
+      Environment:
+        Variables:
+          BUCKET: lambda-artifacts-XXXX
+```
+3. Build layer
+```sh
+$ sh 1-build-layer.sh
+```
+4. Build Lambda
+```sh
+$ sam build
+```
+5. Modify the environment variables values in file `environment/env.json`
+```json
+{
+    "function": {
+        "OPENAI_API_KEY": "your-api-key",
+        "BUCKET": "your-bucket-name"
+    }
+}
+```
+6. Upload the context file `events/1_context.txt` to the bucket using the AWS Console
+7. Invoke the Lambda locally
+```sh
+$ sam local invoke -e events/event.json --env-vars environment/env.json
+```
+## 3. To Do
 - [x] Install node packages
 - [x] Create functions for S3 I/O
 - [x] Conversation memory retriever
@@ -22,9 +58,10 @@ This is an AWS Lambda implementation of a conversational agent with a vectorstor
 - [x] SAM template
 - [x] Create S3 bucket
 - [x] Shell scripts for artefacts
+- [ ] Read OPENAI_API_KEY from SecretsManager
 
 
-## Resources
+## 4. Resources
 - [read s3](https://dev.to/superiqbal7/readdownload-s3-files-using-lambda-functions-53k8)
 - [vectorstore memory retriever](https://js.langchain.com/docs/modules/memory/types/vectorstore_retriever_memory)
 - [blank nodejs lambda](https://github.com/awsdocs/aws-lambda-developer-guide/tree/main/sample-apps/blank-nodejs)
