@@ -66,23 +66,25 @@ function historyConstructor (rawHistory) {
 
 
 // Main Lambda function
-exports.handler = async (event, context) => {
+const handler = async (event, context) => {
     // First, try to read history from s3 bucket
     const sessionID = event.sessionID;
     const prompt = event.prompt;
     let newInteraction = '\n\n\n' + prompt + '\n\n';
     let rawHistory = '';
     try {
-        rawHistory = await readFromS3(sessionID)
+        rawHistory = await readFromS3(sessionID);
     } catch (err) {
         console.log(err);
         console.log('Continuing without history...');
     }
 
     // Second, construct memory vectorstore if necessary
-    let memory
-    if (rawHistory =! ''){
-        memory = historyConstructor(rawHistory);
+    let memory = null
+    try {
+        memory = new historyConstructor(rawHistory);
+    } catch (err) {
+        console.log(err);
     }
 
     const basePrompt = PromptTemplate.fromTemplate(
@@ -97,20 +99,19 @@ exports.handler = async (event, context) => {
         Human: {input}
         AI:`);
         
-
     // Third, instanciate model
     const model = new OpenAI({ temperature: 0.9 });
-    const chain = new LLMChain({ llm: model, basePrompt, memory });
-
+    const chain = new LLMChain({ llm: model, prompt: basePrompt, memory: memory });
+    
     // Fourth, retrieve results
     const response = await chain.call({ input: prompt });
     newInteraction += response; //concatenate to new interaction to store
     rawHistory += newInteraction;
-
+    
     // Fifth, attempt to write to S3
     try {
         writeToS3(sessionID, rawHistory);
-        console.log("Successfully wrote history for sessionID: " + sessionID)
+        console.log("Successfully wrote history for sessionID: " + sessionID);
     } catch (err) {
         console.log(err);
         console.log('Could not store chat history to S3.');
@@ -118,3 +119,6 @@ exports.handler = async (event, context) => {
 
     return response
 };
+
+
+console.log(handler({sessionID: '1', prompt: 'what if I want to work in Australia?'}))
