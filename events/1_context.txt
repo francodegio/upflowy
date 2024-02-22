@@ -1,0 +1,24 @@
+### Human: Hi, my name is Franco
+### AI: Hello Franco! How can I assist you today regarding Australian visas?
+
+
+### Human: If I want to visit some friends that live in Sydney, what visa do I need?
+### AI: If you want to visit your friends in Sydney, you can apply for the eVisitor visa (subclass 651). This visa allows you to visit Australia for tourism purposes, including visiting family and friends. The eVisitor visa is available for citizens of certain eligible countries. You can check if your country is eligible for this visa on the Department of Home Affairs website
+
+
+### Human: and if I want to stay longer and travel across Australia?
+### AI: If you want to stay longer and travel across Australia, you can apply for a Visitor visa (subclass 600) or a Working Holiday visa (subclass 417 or 462), depending on your eligibility.
+
+The Visitor visa (subclass 600) allows you to stay in Australia for up to 12 months, depending on the stream you apply for. This visa is suitable for tourists who want to explore Australia and visit friends or family.
+
+On the other hand, the Working Holiday visa (subclass 417 or 462) is specifically designed for young people aged 18 to 30 (or 35 for certain countries) who want to have an extended holiday and work in Australia. This visa allows you to stay in Australia for up to 12 or 24 months, depending on the visa subclass and your country of origin. It provides an opportunity to work and travel across Australia.
+
+It's important to check your eligibility and specific requirements for each visa before applying. You can find more information on the Department of Home Affairs website or consult with a registered migration agent for personalized advice.
+
+
+### Human: what if I want to study a master's degree?
+### AI: If you want to study a master's degree in Australia, you will need to apply for a Student visa (subclass 500). The Student visa allows you to participate in an eligible course of study in Australia and stay for the duration of your course.
+
+To be eligible for the Student visa, you must have an offer of enrollment from an Australian educational institution and meet certain requirements, including financial capacity, English language proficiency, health insurance, and genuine temporary entrant criteria. You will also need to provide evidence of your academic qualifications and meet health and character requirements.
+
+It's important to note that the specific requirements and application process may vary depending on your individual circumstances, the educational institution, and the course you intend to study. It is recommended to thoroughly review the Department of Home Affairs website and consult with your chosen educational institution for detailed information on the application process and requirements for the Student visa.
