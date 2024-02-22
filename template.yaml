@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that calls OPENAI's API.
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs18.x
+      CodeUri: function/.
+      Timeout: 10
+      # Function's execution role
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_ReadOnlyAccess
+      Tracing: Active
+      Layers:
+        - !Ref libs
+      Environment:
+        Variables:
+          OPENAI_API_KEY: ''
+          BUCKET: lambda-artifacts-e99fd59613669fd0
+  libs:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: langchain-openai
+      Description: Dependencies for the blank sample app.
+      ContentUri: lib/.
+      CompatibleRuntimes:
+        - nodejs18.x
