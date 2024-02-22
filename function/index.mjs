@@ -66,7 +66,7 @@ function historyConstructor (rawHistory) {
 
 
 // Main Lambda function
-const handler = async (event, context) => {
+export const handler = async (event, context) => {
     // First, try to read history from s3 bucket
     const sessionID = event.sessionID;
     const prompt = event.prompt;
@@ -119,6 +119,3 @@ const handler = async (event, context) => {
 
     return response
 };
-
-
-console.log(handler({sessionID: '1', prompt: 'what if I want to work in Australia?'}))
