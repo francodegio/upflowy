@@ -4,7 +4,9 @@ AI Engineer Tech Assessment
 ## 1. About
 This is an AWS Lambda implementation of a conversational agent with a vectorstore-powered memory.
 
-**Note**: for simplicity's sake, I'm assuming that the conversation history format is:
+**Note**: The conversation history was created using my own Python RAG Agent [Immi Agent](https://francodegio-immigration-agent.hf.space/).
+
+**Note 2**: Since the conversation history format was not specified, for simplicity's sake, I'm assuming that the format is:
 ```txt
 ### Human: ...
 ### AI: ...
