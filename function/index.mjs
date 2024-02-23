@@ -9,15 +9,14 @@ const bucketName = process.env.BUCKET;
 
 
 // Functions //
-function readFromS3(sessionID)  {
+async function readFromS3(sessionID)  {
     const s3 = new AWS.S3();
     const objectKey = sessionID + '_context.txt';
     const params = {
         Bucket: bucketName,
         Key: objectKey
     };
-    const s3Object = s3.getObject(params).promise();
-    console.log(s3Object.Body.toString());
+    const s3Object = await s3.getObject(params).promise();
     return s3Object.Body.toString();
 }
 
@@ -70,7 +69,7 @@ export const handler = async (event, context) => {
     // First, try to read history from s3 bucket
     const sessionID = event.sessionID;
     const prompt = event.prompt;
-    let newInteraction = '\n\n\n' + prompt + '\n\n';
+    let newInteraction = '\n\n\n### Human:' + prompt + '\n\n';
     let rawHistory = '';
     try {
         rawHistory = await readFromS3(sessionID);
@@ -105,7 +104,7 @@ export const handler = async (event, context) => {
     
     // Fourth, retrieve results
     const response = await chain.call({ input: prompt });
-    newInteraction += response; //concatenate to new interaction to store
+    newInteraction += '### AI: ' + response['text']; //concatenate to new interaction to store
     rawHistory += newInteraction;
     
     // Fifth, attempt to write to S3
@@ -117,5 +116,9 @@ export const handler = async (event, context) => {
         console.log('Could not store chat history to S3.');
     }
 
-    return response
+    return {
+        question: prompt,
+        answer: response['text'],
+        newHistory: newInteraction
+    }
 };
